@@ -13,16 +13,18 @@ public class BreakableObject : MonoBehaviour
     }
 
     private State state = State.reapired;
+    public InternalSheepDamages damages;
     public float reparationTime = 1.0f;
     private void Start()
     {
         gameObject.tag = Tags.repairObjectTag;
         GetComponent<MeshRenderer>().material.color = Color.green;
+        damages.OnDamage.AddListener(TryBreak);
     }
 
-    private void Update()
+    private void TryBreak(float breakProbavility) 
     {
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Random.Range(0,100) <= breakProbavility)
         {
             Break();
         }

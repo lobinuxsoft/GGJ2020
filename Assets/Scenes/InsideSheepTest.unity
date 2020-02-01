@@ -37,14 +37,14 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_Sun: {fileID: 767141198}
+  m_IndirectSpecularColor: {r: 0.44031215, g: 0.48887438, b: 0.5690424, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -819,6 +819,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   gravity: 20
+  damages: {fileID: 11400000, guid: bce9f23b67704a342a54764b001a9ad7, type: 2}
 --- !u!143 &1765386241
 CharacterController:
   m_ObjectHideFlags: 0
@@ -830,13 +831,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 1.61
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.65, z: 0}
 --- !u!1 &1886409971
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,6 +884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02dd10d8bae147343a949ef96e78419b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damages: {fileID: 11400000, guid: bce9f23b67704a342a54764b001a9ad7, type: 2}
   reparationTime: 3
 --- !u!65 &1886409974
 BoxCollider:
@@ -965,6 +967,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7943378556525867576, guid: 8444b9e7fcb932940953ac7b447ac011,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5968019647682367285, guid: 8444b9e7fcb932940953ac7b447ac011,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 8444b9e7fcb932940953ac7b447ac011,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -973,7 +985,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 8444b9e7fcb932940953ac7b447ac011,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.3082724
+      value: -2.87
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 8444b9e7fcb932940953ac7b447ac011,
         type: 3}

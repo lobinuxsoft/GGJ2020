@@ -39,7 +39,6 @@ public class PlayerController : MonoBehaviour
             case FSM.Repairing:
                 break;
         }
-
     }
 
     private void EnableMovement()
