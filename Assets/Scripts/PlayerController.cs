@@ -1,62 +1,64 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    private const string horizontalAxis = "Horizontal";
-    private const string verticalAxis = "Vertical";
+    CharacterController characterController;
+    private Vector3 moveDirection = Vector3.zero;
+    [SerializeField] private float speed = 6.0f;
+    [SerializeField] private float gravity = 20.0f;
 
-    public Vector3 movementForce;
-    private Rigidbody rb;
-    [SerializeField] private float movementSpeed;
-    [SerializeField] private float friction;
+    enum FSM
+    {
+        Movement,
+        Repairing,
+        count
+    }
+
+    private FSM fsm = FSM.Movement;
     void Start()
     {
-        rb = gameObject.AddComponent<Rigidbody>();
-        rb.useGravity = false;
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
+        characterController = GetComponent<CharacterController>();
     }
 
     void Update()
     {
-        float horizontalMovement = Input.GetAxisRaw(horizontalAxis);
-        float verticalMovement = Input.GetAxisRaw(verticalAxis);
-
-        if (horizontalMovement != 0.0f)
-            movementForce.x = horizontalMovement * movementSpeed;
-        else if (movementForce.x > 0.0f)
-            movementForce.x -= Time.deltaTime * friction;
-        else if (movementForce.x < 0.0f)
-            movementForce.x += Time.deltaTime * friction;
-
-        if (Mathf.Abs(movementForce.x) < 0.2f)
+        switch (fsm)
         {
-            movementForce.x = 0.0f;
+            case FSM.Movement:
+                if (characterController.isGrounded)
+                {
+                    moveDirection = new Vector3(Input.GetAxis(Tags.horizontalAxis), 0.0f, Input.GetAxis(Tags.verticalAxis));
+                    moveDirection *= speed;
+                }
+
+                moveDirection.y -= gravity * Time.deltaTime;
+
+                characterController.Move(moveDirection * Time.deltaTime);
+                transform.LookAt(transform.position + new Vector3(moveDirection.x, 0.0f, moveDirection.z));
+                break;
+            case FSM.Repairing:
+                break;
         }
 
-
-
-        if (verticalMovement != 0.0f)
-            movementForce.z = verticalMovement * movementSpeed;
-        else if (movementForce.z > 0.0f)
-            movementForce.z -= Time.deltaTime * friction;
-        else if (movementForce.z < 0.0f)
-            movementForce.z += Time.deltaTime * friction;
-
-        if (Mathf.Abs(movementForce.z) < Time.unscaledDeltaTime * friction)
-        {
-            movementForce.z = 0.0f;
-        }
     }
 
-    private void FixedUpdate()
+    private void EnableMovement()
     {
-        rb.velocity = movementForce;
-        if (movementForce != Vector3.zero)
-        {
-            transform.forward = Vector3.Lerp(transform.forward, movementForce.normalized, 1.0f);
-        }
+        fsm = FSM.Movement;
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag(Tags.repairObjectTag))
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Debug.Log("puto");
+                BreakableObject breakableObject = other.GetComponent<BreakableObject>();
+                breakableObject.InReparation();
+                Invoke("EnableMovement", breakableObject.reparationTime);
+                fsm = FSM.Repairing;
+            }
+        }
+    }
 }
