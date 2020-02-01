@@ -6,44 +6,63 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     [SerializeField] private float speed = 6.0f;
     [SerializeField] private float gravity = 20.0f;
-
+    private Animator animator;
     enum FSM
     {
+        Idle,
         Movement,
         Repairing,
         count
     }
 
-    private FSM fsm = FSM.Movement;
+    private FSM fsm = FSM.Idle;
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
+        animator.SetTrigger(Tags.idleTrigger);
     }
 
     void Update()
     {
+
+        moveDirection = new Vector3(Input.GetAxis(Tags.horizontalAxis), 0.0f, Input.GetAxis(Tags.verticalAxis));
+        moveDirection *= speed;
+
         switch (fsm)
         {
-            case FSM.Movement:
-                if (characterController.isGrounded)
+            case FSM.Idle:
+                if (moveDirection != Vector3.zero)
                 {
-                    moveDirection = new Vector3(Input.GetAxis(Tags.horizontalAxis), 0.0f, Input.GetAxis(Tags.verticalAxis));
-                    moveDirection *= speed;
-                }
+                    animator.SetFloat(Tags.runTrigger, 1);
+                    fsm = FSM.Movement;
+                    return;
 
-                moveDirection.y -= gravity * Time.deltaTime;
+                }
+                break;
+
+            case FSM.Movement:
+
+                if (moveDirection == Vector3.zero)
+                {
+                    animator.SetFloat(Tags.runTrigger, 0);
+                    fsm = FSM.Idle;
+                    return;
+                }
 
                 characterController.Move(moveDirection * Time.deltaTime);
                 transform.LookAt(transform.position + new Vector3(moveDirection.x, 0.0f, moveDirection.z));
                 break;
             case FSM.Repairing:
+                animator.SetTrigger(Tags.repairTrigger);
                 break;
         }
+
     }
 
     private void EnableMovement()
     {
-        fsm = FSM.Movement;
+        fsm = FSM.Idle;
     }
 
     private void OnTriggerStay(Collider other)
@@ -52,7 +71,6 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                Debug.Log("puto");
                 BreakableObject breakableObject = other.GetComponent<BreakableObject>();
                 breakableObject.InReparation();
                 Invoke("EnableMovement", breakableObject.reparationTime);
