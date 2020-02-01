@@ -7,8 +7,8 @@ public class PlayerController : MonoBehaviour
     CharacterController characterController;
     private Vector3 moveDirection = Vector3.zero;
     [SerializeField] private float speed = 6.0f;
-    [SerializeField] private float gravity = 20.0f;
     private Animator animator;
+    private Vector3 startPosition;
     enum FSM
     {
         Idle,
@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         animator.SetTrigger(Tags.idleTrigger);
+        startPosition = transform.position;
     }
 
     void Update()
@@ -88,6 +89,15 @@ public class PlayerController : MonoBehaviour
                 Invoke("EnableMovement", breakableObject.reparationTime);
                 fsm = FSM.Repairing;
             }
+        }
+
+        if (other.gameObject.CompareTag(Tags.BobCabinTag))
+        {
+            //if (Input.GetButtonDown("ChangeState"))
+            //{
+                gameState.currentEntity = GameState.PlayableEntities.Ship;
+                transform.position = startPosition;
+            //}
         }
     }
 }

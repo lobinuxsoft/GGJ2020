@@ -6,4 +6,5 @@
     public static readonly string idleTrigger = "Idle";
     public static readonly string runTrigger = "Run";
     public static readonly string repairTrigger = "Repair";
+    public static readonly string BobCabinTag = "BobCabin";
 }
