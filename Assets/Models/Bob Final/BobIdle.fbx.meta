@@ -5,8 +5,13 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: mixamo.com
-  externalObjects: {}
+    second: Idle
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Merged_Detach1_group3_pCube5
+    second: {fileID: 2100000, guid: f567c02e36cdf604ca7150d2201a836b, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -35,7 +40,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: mixamo.com
+      name: Idle
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
