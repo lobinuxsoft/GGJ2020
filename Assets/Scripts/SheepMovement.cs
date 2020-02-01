@@ -86,7 +86,8 @@ public class SheepMovement : MonoBehaviour
             QuickSpin(dir);
         }
 
-
+        if (Input.GetButtonDown("ChangeState"))
+            gameState.currentEntity = GameState.PlayableEntities.Bob;
     }
 
     void LocalMove(float x, float y, float speed)
@@ -222,5 +223,10 @@ public class SheepMovement : MonoBehaviour
 
         DOVirtual.Float(dolly.m_Speed, speed, .15f, SetSpeed);
         SetCameraZoom(zoom, .4f);
+    }
+
+    private void OnDestroy()
+    {
+        gameState.currentEntity = GameState.PlayableEntities.Ship;
     }
 }

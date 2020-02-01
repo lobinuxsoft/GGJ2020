@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Controla el estado de gameplay, cuando se controla la nave o cuando
     se controla el personaje.
-  currentEntity: 1
+  currentEntity: 0
