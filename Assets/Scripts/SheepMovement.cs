@@ -26,8 +26,8 @@ public class SheepMovement : MonoBehaviour
     [Space]
 
     [Header("Particles")]
-    public ParticleSystem trail;
-    public ParticleSystem circle;
+    public ParticleSystem[] trail;
+    public ParticleSystem[] circle;
     public ParticleSystem barrel;
     public ParticleSystem stars;
 
@@ -143,15 +143,35 @@ public class SheepMovement : MonoBehaviour
         if (state)
         {
             cameraParent.GetComponentInChildren<CinemachineImpulseSource>().GenerateImpulse();
-            trail.Play();
-            circle.Play();
+            
+            foreach (var t in trail)
+            {
+                t.Play();
+            }
+
+            foreach (var c in circle)
+            {
+                c.Play();
+            }
         }
         else
         {
-            trail.Stop();
-            circle.Stop();
+            foreach (var t in trail)
+            {
+                t.Stop();
+            }
+            
+            foreach (var c in circle)
+            {
+                c.Stop();
+            }
         }
-        trail.GetComponent<TrailRenderer>().emitting = state;
+        
+        foreach (var t in trail)
+        {
+            t.GetComponent<TrailRenderer>().emitting = state;
+        }
+        //trail.GetComponent<TrailRenderer>().emitting = state;
 
         float origFov = state ? 40 : 55;
         float endFov = state ? 55 : 40;
