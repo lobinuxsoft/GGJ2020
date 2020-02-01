@@ -30,7 +30,11 @@ public class SheepMovement : MonoBehaviour
     public ParticleSystem circle;
     public ParticleSystem barrel;
     public ParticleSystem stars;
-    
+
+    [Space] [Header("Private Expose Reference")]
+    private GameObject flyCam;
+    private GameObject introCam;
+
 
     void Update()
     {

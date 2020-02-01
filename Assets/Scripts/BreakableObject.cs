@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BreakableObject : MonoBehaviour
 {
-    enum State
+    public enum State
     {
         broken,
         inReparation,
@@ -12,7 +12,7 @@ public class BreakableObject : MonoBehaviour
         count
     }
 
-    private State state = State.reapired;
+    public State state = State.reapired;
     public InternalSheepDamages damages;
     public float reparationTime = 1.0f;
     private void Start()
