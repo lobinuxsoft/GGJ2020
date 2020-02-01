@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class DamageReceiver : MonoBehaviour
 {
-    public void SetDamage(Vector3 pos, float force)
+    [SerializeField] InternalSheepDamages internalSheepDamages;
+    public void SetDamage(float damage)
     {
-        Debug.Log($"Collision point: {pos} / Force: {force}");
+        internalSheepDamages.OnDamage.Invoke(damage);
     }
 }

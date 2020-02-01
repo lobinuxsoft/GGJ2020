@@ -8,6 +8,4 @@ public class InternalSheepDamages : BaseVariable
 }
 
 [System.Serializable]
-public class DamageEvent : UnityEvent<float>
-{
-}
+public class DamageEvent : UnityEvent<float>{ }

@@ -24,10 +24,9 @@ public class AsteroidsCollision : MonoBehaviour
         {
             if (dr)
             {
-                
-                var pos = collisionEvents[i].intersection;
                 var force = collisionEvents[i].velocity.magnitude * 10;
-                dr.SetDamage(pos, force);
+                Debug.Log(force);
+                dr.SetDamage(force);
             }
             i++;
         }

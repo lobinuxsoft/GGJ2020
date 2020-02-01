@@ -42,10 +42,10 @@ public class SheepMovement : MonoBehaviour
         RotationLook(h * shipParameters.maxLookInclination, v * shipParameters.maxLookInclination, shipParameters.lookSpeed);
         HorizontalLean(shipModel, h, 80, .1f);
 
-        if (Input.GetButtonDown("Action"))
+        if (Input.GetButtonDown("Action") || Input.GetKeyDown(KeyCode.Space))
             Boost(true);
 
-        if (Input.GetButtonUp("Action"))
+        if (Input.GetButtonUp("Action") || Input.GetKeyUp(KeyCode.Space))
             Boost(false);
 
         if (Input.GetButtonDown("Fire3"))
