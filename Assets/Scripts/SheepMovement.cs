@@ -5,7 +5,7 @@ using DG.Tweening;
 using Cinemachine;
 using UnityEngine.Rendering.PostProcessing;
 
-public class PlayerMovement : MonoBehaviour
+public class SheepMovement : MonoBehaviour
 {
     private Transform playerModel;
 
