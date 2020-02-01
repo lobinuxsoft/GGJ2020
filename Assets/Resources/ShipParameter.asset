@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: 
   moveSpeed: 12
+  clampMovement: 0.15
   maxLookInclination: 0.25
   lookSpeed: 6000
   forwardSpeed: 12
