@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using DG.Tweening;
 using Cinemachine;
 using UnityEngine.Rendering.PostProcessing;
@@ -11,9 +12,8 @@ public class SheepMovement : MonoBehaviour
     [Header("Settings")]
     public bool joystick = true;
 
-    [Space] 
-    
-    [Header("Parameters")] 
+    [Space] [Header("Parameters")]
+    [SerializeField] private GameState gameState;
     [SerializeField] private ShipParameters shipParameters;
 
     [Space]
@@ -31,17 +31,39 @@ public class SheepMovement : MonoBehaviour
     public ParticleSystem barrel;
     public ParticleSystem stars;
 
-    [Space] [Header("Private Expose Reference")]
-    private GameObject flyCam;
-    private GameObject introCam;
+    [Space]
+    
+    [Header("Private Expose Reference")]
+    [SerializeField] private GameObject flyCam;
+    [SerializeField] private GameObject introCam;
+
+    private Camera mainCamera;
+
+    private void Start()
+    {
+        mainCamera = Camera.main;
+    }
 
 
     void Update()
     {
+        SetSpeed(shipParameters.forwardSpeed);
+
+        if (gameState.currentEntity != GameState.PlayableEntities.Ship)
+        {
+            flyCam.SetActive(false);
+            mainCamera.gameObject.SetActive(false);
+            return;
+        }
+        else
+        {
+            mainCamera.gameObject.SetActive(true);
+            flyCam.SetActive(true);
+        }
+        
         float h = joystick ? Input.GetAxis("Horizontal") : Input.GetAxis("Mouse X");
         float v = joystick ? Input.GetAxis("Vertical") : Input.GetAxis("Mouse Y");
 
-        SetSpeed(shipParameters.forwardSpeed);
         LocalMove(h, v, shipParameters.moveSpeed);
         RotationLook(h * shipParameters.maxLookInclination, v * shipParameters.maxLookInclination, shipParameters.lookSpeed);
         HorizontalLean(shipModel, h, 80, .1f);
@@ -75,10 +97,10 @@ public class SheepMovement : MonoBehaviour
 
     void ClampPosition()
     {
-        Vector3 pos = Camera.main.WorldToViewportPoint(shipTransform.position);
+        Vector3 pos = mainCamera.WorldToViewportPoint(shipTransform.position);
         pos.x = Mathf.Clamp(pos.x, shipParameters.clampMovement, 1 - shipParameters.clampMovement);
         pos.y = Mathf.Clamp(pos.y, shipParameters.clampMovement, 1 - shipParameters.clampMovement);
-        shipTransform.position = Camera.main.ViewportToWorldPoint(pos);
+        shipTransform.position = mainCamera.ViewportToWorldPoint(pos);
     }
 
     void RotationLook(float h, float v, float speed)
@@ -123,7 +145,7 @@ public class SheepMovement : MonoBehaviour
 
     void DistortionAmount(float x)
     {
-        Camera.main.GetComponent<PostProcessVolume>().profile.GetSetting<LensDistortion>().intensity.value = x;
+        mainCamera.GetComponent<PostProcessVolume>().profile.GetSetting<LensDistortion>().intensity.value = x;
     }
 
     void FieldOfView(float fov)
@@ -133,7 +155,7 @@ public class SheepMovement : MonoBehaviour
 
     void Chromatic(float x)
     {
-        Camera.main.GetComponent<PostProcessVolume>().profile.GetSetting<ChromaticAberration>().intensity.value = x;
+        mainCamera.GetComponent<PostProcessVolume>().profile.GetSetting<ChromaticAberration>().intensity.value = x;
     }
 
 

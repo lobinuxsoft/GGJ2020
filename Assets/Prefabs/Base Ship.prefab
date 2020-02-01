@@ -48987,6 +48987,7 @@ MonoBehaviour:
   shipTransform: {fileID: 8690351762908940926}
   shipModel: {fileID: 8690351762896827501}
   joystick: 1
+  gameState: {fileID: 11400000, guid: a30d8a387b67f0e41967e2f609f603c5, type: 2}
   shipParameters: {fileID: 11400000, guid: 88fe23e4de7e73245a65972fb3e2b7bc, type: 2}
   aimTarget: {fileID: 8690351763772660204}
   dolly: {fileID: 8690351763385070141}
@@ -49001,12 +49002,10 @@ MonoBehaviour:
   - {fileID: 6691924086681815671}
   - {fileID: 3709238744400067985}
   - {fileID: 357023348009996128}
-  - {fileID: 8690351763553520638}
-  - {fileID: 3531810560944857436}
-  - {fileID: 5163847712436457487}
-  - {fileID: 1751771357439230309}
   barrel: {fileID: 8690351762857513115}
   stars: {fileID: 8690351762859002006}
+  flyCam: {fileID: 8690351763137863618}
+  introCam: {fileID: 0}
 --- !u!114 &8690351763385070141
 MonoBehaviour:
   m_ObjectHideFlags: 0

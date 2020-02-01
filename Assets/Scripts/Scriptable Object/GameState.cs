@@ -13,14 +13,4 @@ public class GameState : BaseVariable
     }
 
     public PlayableEntities currentEntity = PlayableEntities.Ship;
-    public Cams cams;
-}
-
-[System.Serializable]
-public struct Cams
-{
-    public GameObject flyCam;
-    public GameObject radarCam;
-    public GameObject introCam;
-    public GameObject bobCam;
 }

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c384d2b49782e743b0599634019165e, type: 3}
   m_Name: GameStat
   m_EditorClassIdentifier: 
-  description: 
-  currentEntity: 0
+  description: Controla el estado de gameplay, cuando se controla la nave o cuando
+    se controla el personaje.
+  currentEntity: 1

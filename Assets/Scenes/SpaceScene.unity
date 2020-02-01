@@ -10030,12 +10030,12 @@ Camera:
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 0}
-  m_projectionMatrixMode: 1
+  m_projectionMatrixMode: 2
   m_GateFitMode: 2
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
+  m_FocalLength: 32.96973
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -10527,5 +10527,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base Ship
       objectReference: {fileID: 0}
+    - target: {fileID: 8742150705966778494, guid: 432a121772425fc40b49d89c36e1a243,
+        type: 3}
+      propertyPath: introCam
+      value: 
+      objectReference: {fileID: 1490120679}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 432a121772425fc40b49d89c36e1a243, type: 3}

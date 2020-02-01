@@ -2,6 +2,8 @@
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private GameState gameState;
+    [SerializeField] private GameObject bobCamera;
     CharacterController characterController;
     private Vector3 moveDirection = Vector3.zero;
     [SerializeField] private float speed = 6.0f;
@@ -26,6 +28,16 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
+        if (gameState.currentEntity != GameState.PlayableEntities.Bob)
+        {
+            bobCamera.SetActive(false);
+            return;
+        }
+        else
+        {
+            bobCamera.SetActive(true);
+        }
+        
         moveDirection = new Vector3(Input.GetAxis(Tags.horizontalAxis), 0.0f, Input.GetAxis(Tags.verticalAxis));
         moveDirection *= speed;
 
