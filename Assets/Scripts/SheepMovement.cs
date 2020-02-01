@@ -1,25 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using DG.Tweening;
 using Cinemachine;
 using UnityEngine.Rendering.PostProcessing;
 
 public class SheepMovement : MonoBehaviour
 {
-    private Transform playerModel;
+    [SerializeField] private Transform shipTransform;
+    [SerializeField] private Transform shipModel;
 
     [Header("Settings")]
     public bool joystick = true;
 
-    [Space]
-
-    [Header("Parameters")]
-    public float xySpeed = 18;
-
-    public float maxLookInclination = .25f;
-    public float lookSpeed = 340;
-    public float forwardSpeed = 6;
+    [Space] 
+    
+    [Header("Parameters")] 
+    [SerializeField] private ShipParameters shipParameters;
 
     [Space]
 
@@ -35,21 +30,17 @@ public class SheepMovement : MonoBehaviour
     public ParticleSystem circle;
     public ParticleSystem barrel;
     public ParticleSystem stars;
-
-    void Start()
-    {
-        playerModel = transform.GetChild(0);
-        SetSpeed(forwardSpeed);
-    }
+    
 
     void Update()
     {
         float h = joystick ? Input.GetAxis("Horizontal") : Input.GetAxis("Mouse X");
         float v = joystick ? Input.GetAxis("Vertical") : Input.GetAxis("Mouse Y");
 
-        LocalMove(h, v, xySpeed);
-        RotationLook(h * maxLookInclination, v * maxLookInclination, lookSpeed);
-        HorizontalLean(playerModel, h, 80, .1f);
+        SetSpeed(shipParameters.forwardSpeed);
+        LocalMove(h, v, shipParameters.moveSpeed);
+        RotationLook(h * shipParameters.maxLookInclination, v * shipParameters.maxLookInclination, shipParameters.lookSpeed);
+        HorizontalLean(shipModel, h, 80, .1f);
 
         if (Input.GetButtonDown("Action"))
             Boost(true);
@@ -74,23 +65,23 @@ public class SheepMovement : MonoBehaviour
 
     void LocalMove(float x, float y, float speed)
     {
-        transform.localPosition += new Vector3(x, y, 0) * speed * Time.deltaTime;
+        shipTransform.localPosition += new Vector3(x, y, 0) * speed * Time.deltaTime;
         ClampPosition();
     }
 
     void ClampPosition()
     {
-        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
-        pos.x = Mathf.Clamp01(pos.x);
-        pos.y = Mathf.Clamp01(pos.y);
-        transform.position = Camera.main.ViewportToWorldPoint(pos);
+        Vector3 pos = Camera.main.WorldToViewportPoint(shipTransform.position);
+        pos.x = Mathf.Clamp(pos.x, shipParameters.clampMovement, 1 - shipParameters.clampMovement);
+        pos.y = Mathf.Clamp(pos.y, shipParameters.clampMovement, 1 - shipParameters.clampMovement);
+        shipTransform.position = Camera.main.ViewportToWorldPoint(pos);
     }
 
     void RotationLook(float h, float v, float speed)
     {
         aimTarget.parent.position = Vector3.zero;
         aimTarget.localPosition = new Vector3(h, v, 1);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(aimTarget.position), Mathf.Deg2Rad * speed * Time.deltaTime);
+        shipTransform.rotation = Quaternion.RotateTowards(shipTransform.rotation, Quaternion.LookRotation(aimTarget.position), Mathf.Deg2Rad * speed * Time.deltaTime);
     }
 
     void HorizontalLean(Transform target, float axis, float leanLimit, float lerpTime)
@@ -109,9 +100,9 @@ public class SheepMovement : MonoBehaviour
 
     public void QuickSpin(int dir)
     {
-        if (!DOTween.IsTweening(playerModel))
+        if (!DOTween.IsTweening(shipModel))
         {
-            playerModel.DOLocalRotate(new Vector3(playerModel.localEulerAngles.x, playerModel.localEulerAngles.y, 360 * -dir), .4f, RotateMode.LocalAxisAdd).SetEase(Ease.OutSine);
+            shipModel.DOLocalRotate(new Vector3(shipModel.localEulerAngles.x, shipModel.localEulerAngles.y, 360 * -dir), .4f, RotateMode.LocalAxisAdd).SetEase(Ease.OutSine);
             barrel.Play();
         }
     }
@@ -165,7 +156,7 @@ public class SheepMovement : MonoBehaviour
         float origDistortion = state ? 0 : -30;
         float endDistorton = state ? -30 : 0;
         float starsVel = state ? -20 : -1;
-        float speed = state ? forwardSpeed * 2 : forwardSpeed;
+        float speed = state ? shipParameters.forwardSpeed * 2 : shipParameters.forwardSpeed;
         float zoom = state ? -7 : 0;
 
         DOVirtual.Float(origChrom, endChrom, .5f, Chromatic);
@@ -180,7 +171,7 @@ public class SheepMovement : MonoBehaviour
 
     void Break(bool state)
     {
-        float speed = state ? forwardSpeed / 3 : forwardSpeed;
+        float speed = state ? shipParameters.forwardSpeed / 3 : shipParameters.forwardSpeed;
         float zoom = state ? 3 : 0;
 
         DOVirtual.Float(dolly.m_Speed, speed, .15f, SetSpeed);
