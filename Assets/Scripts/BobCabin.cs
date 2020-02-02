@@ -13,7 +13,7 @@ public class BobCabin : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        gameState.currentEntity = GameState.PlayableEntities.Ship;
+        //gameState.currentEntity = GameState.PlayableEntities.Ship;
         //other.transform.position = resetPos.position;
         //other.transform.rotation = resetPos.rotation;
     }

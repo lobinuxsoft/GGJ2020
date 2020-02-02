@@ -16,9 +16,11 @@ public class BreakableObject : MonoBehaviour
     public InternalSheepDamages damages;
     public float reparationTime = 1.0f;
     private ParticleSystem fire;
+
     private void Start()
     {
         gameObject.tag = Tags.repairObjectTag;
+        damages.total++;
         damages.OnDamage.AddListener(TryBreak);
         fire = GetComponentInChildren<ParticleSystem>();
     }
@@ -36,6 +38,7 @@ public class BreakableObject : MonoBehaviour
         if (state == State.reapired)
         {
             state = State.broken;
+            damages.current++;
             //Debug.Log("Broken: " + gameObject.name);
             fire.Play();
         }
@@ -56,6 +59,8 @@ public class BreakableObject : MonoBehaviour
         {
             state = State.reapired;
             fire.Stop();
+            damages.current--;
+            damages.OnRepair.Invoke();
         }
     }
 }

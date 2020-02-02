@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     [SerializeField] private float speed = 6.0f;
     private Animator animator;
-    private Vector3 startPosition;
+    public Vector3 startPosition;
     enum FSM
     {
         Idle,
@@ -32,13 +32,14 @@ public class PlayerController : MonoBehaviour
         if (gameState.currentEntity != GameState.PlayableEntities.Bob)
         {
             bobCamera.SetActive(false);
+            transform.position = startPosition;
             return;
         }
         else
         {
             bobCamera.SetActive(true);
         }
-        
+
         moveDirection = new Vector3(Input.GetAxis(Tags.horizontalAxis), 0.0f, Input.GetAxis(Tags.verticalAxis));
         moveDirection *= speed;
 
@@ -67,7 +68,7 @@ public class PlayerController : MonoBehaviour
                 transform.LookAt(transform.position + new Vector3(moveDirection.x, 0.0f, moveDirection.z));
                 break;
             case FSM.Repairing:
-                animator.SetTrigger(Tags.repairTrigger);
+                animator.SetBool(Tags.repairTrigger, true);
                 break;
         }
 
@@ -76,6 +77,7 @@ public class PlayerController : MonoBehaviour
     private void EnableMovement()
     {
         fsm = FSM.Idle;
+        animator.SetBool(Tags.repairTrigger, false);
     }
 
     private void OnTriggerStay(Collider other)
@@ -91,13 +93,15 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (other.gameObject.CompareTag(Tags.BobCabinTag))
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag(Tags.BobCabinTag) && gameState.currentEntity == GameState.PlayableEntities.Bob)
         {
-            //if (Input.GetButtonDown("ChangeState"))
-            //{
-                gameState.currentEntity = GameState.PlayableEntities.Ship;
-                transform.position = startPosition;
-            //}
+            gameState.currentEntity = GameState.PlayableEntities.Ship;
         }
     }
+
 }

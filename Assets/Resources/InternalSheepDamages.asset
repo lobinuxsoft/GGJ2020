@@ -13,4 +13,11 @@ MonoBehaviour:
   m_Name: InternalSheepDamages
   m_EditorClassIdentifier: 
   description: 
-  breakProbavility: 30
+  total: 0
+  current: 0
+  OnDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRepair:
+    m_PersistentCalls:
+      m_Calls: []
