@@ -25,7 +25,7 @@ public class AsteroidsCollision : MonoBehaviour
             if (dr)
             {
                 var force = collisionEvents[i].velocity.magnitude * 10;
-                Debug.Log(force);
+                //Debug.Log(force);
                 dr.SetDamage(force);
             }
             i++;

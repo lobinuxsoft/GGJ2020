@@ -15,16 +15,17 @@ public class BreakableObject : MonoBehaviour
     public State state = State.reapired;
     public InternalSheepDamages damages;
     public float reparationTime = 1.0f;
+    private ParticleSystem fire;
     private void Start()
     {
         gameObject.tag = Tags.repairObjectTag;
-        GetComponent<MeshRenderer>().material.color = Color.green;
         damages.OnDamage.AddListener(TryBreak);
+        fire = GetComponentInChildren<ParticleSystem>();
     }
 
-    private void TryBreak(float breakProbavility) 
+    private void TryBreak(float breakProbavility)
     {
-        if (Random.Range(0,100) <= breakProbavility)
+        if (Random.Range(0, 100) <= breakProbavility)
         {
             Break();
         }
@@ -35,8 +36,8 @@ public class BreakableObject : MonoBehaviour
         if (state == State.reapired)
         {
             state = State.broken;
-
-            GetComponent<MeshRenderer>().material.color = Color.red;
+            //Debug.Log("Broken: " + gameObject.name);
+            fire.Play();
         }
     }
 
@@ -45,7 +46,6 @@ public class BreakableObject : MonoBehaviour
         if (state == State.broken)
         {
             state = State.inReparation;
-            GetComponent<MeshRenderer>().material.color = Color.yellow;
             Invoke("Repair", reparationTime);
         }
     }
@@ -55,7 +55,7 @@ public class BreakableObject : MonoBehaviour
         if (state == State.inReparation)
         {
             state = State.reapired;
-            GetComponent<MeshRenderer>().material.color = Color.green;
+            fire.Stop();
         }
     }
 }
