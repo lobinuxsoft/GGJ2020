@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
-        animator.SetTrigger(Tags.idleTrigger);
+        //animator.SetTrigger(Tags.idleTrigger);
         startPosition = transform.position;
     }
 

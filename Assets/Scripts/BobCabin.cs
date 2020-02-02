@@ -4,7 +4,7 @@
 public class BobCabin : MonoBehaviour
 {
     [SerializeField] GameState gameState;
-    [SerializeField] Transform resetPos;
+    //[SerializeField] Transform resetPos;
     void Start()
     {
         GetComponent<BoxCollider>().isTrigger = true;
@@ -14,7 +14,7 @@ public class BobCabin : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         gameState.currentEntity = GameState.PlayableEntities.Ship;
-        other.transform.position = resetPos.position;
-        other.transform.rotation = resetPos.rotation;
+        //other.transform.position = resetPos.position;
+        //other.transform.rotation = resetPos.rotation;
     }
 }
