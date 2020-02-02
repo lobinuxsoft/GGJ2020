@@ -41,6 +41,7 @@ public class BreakableObject : MonoBehaviour
             damages.current++;
             //Debug.Log("Broken: " + gameObject.name);
             fire.Play();
+            AudioManager.instance.PlayAudio(AudioManager.instance.SFXAudio, AudioKey.Fire);
         }
     }
 

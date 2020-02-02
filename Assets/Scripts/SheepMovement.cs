@@ -68,8 +68,11 @@ public class SheepMovement : MonoBehaviour
         RotationLook(h * shipParameters.maxLookInclination, v * shipParameters.maxLookInclination, shipParameters.lookSpeed);
         HorizontalLean(shipModel, h, 80, .1f);
 
-        if (Input.GetButtonDown("Action") || Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Action") || Input.GetKeyDown(KeyCode.Space)) 
+        {
             Boost(true);
+            AudioManager.instance.PlayAudio(AudioManager.instance.shipAudio, AudioKey.AcelerationStart);
+        }
 
         if (Input.GetButtonUp("Action") || Input.GetKeyUp(KeyCode.Space))
             Boost(false);
@@ -84,6 +87,7 @@ public class SheepMovement : MonoBehaviour
         {
             int dir = Input.GetButtonDown("TriggerL") ? -1 : 1;
             QuickSpin(dir);
+            AudioManager.instance.PlayAudio(AudioManager.instance.shipAudio, AudioKey.Spin);
         }
 
         if (Input.GetButtonDown("ChangeState") || Input.GetKeyDown(KeyCode.Z))

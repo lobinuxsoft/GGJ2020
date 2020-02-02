@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
         switch (fsm)
         {
             case FSM.Idle:
+
                 if (moveDirection != Vector3.zero)
                 {
                     animator.SetFloat(Tags.runTrigger, 1);
@@ -61,6 +62,10 @@ public class PlayerController : MonoBehaviour
                 {
                     animator.SetFloat(Tags.runTrigger, 0);
                     fsm = FSM.Idle;
+
+                    if (Random.Range(0.0f, 1.0f) < 0.4f)
+                        AudioManager.instance.PlayAudio(AudioManager.instance.playerAudio, AudioKey.Idle);
+
                     return;
                 }
 
@@ -77,6 +82,7 @@ public class PlayerController : MonoBehaviour
     private void EnableMovement()
     {
         fsm = FSM.Idle;
+        AudioManager.instance.PlayAudio(AudioManager.instance.playerAudio, AudioKey.FireStopped);
         animator.SetBool(Tags.repairTrigger, false);
     }
 
@@ -89,6 +95,7 @@ public class PlayerController : MonoBehaviour
                 BreakableObject breakableObject = other.GetComponent<BreakableObject>();
                 breakableObject.InReparation();
                 Invoke("EnableMovement", breakableObject.reparationTime);
+                AudioManager.instance.PlayAudio(AudioManager.instance.playerAudio, AudioKey.Repair);
                 fsm = FSM.Repairing;
             }
         }
@@ -101,6 +108,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag(Tags.BobCabinTag) && gameState.currentEntity == GameState.PlayableEntities.Bob)
         {
             gameState.currentEntity = GameState.PlayableEntities.Ship;
+            AudioManager.instance.PlayAudio(AudioManager.instance.SFXAudio, AudioKey.Door);
         }
     }
 
