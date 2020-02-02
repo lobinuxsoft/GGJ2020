@@ -41,8 +41,14 @@ public class BreakableObject : MonoBehaviour
             damages.current++;
             //Debug.Log("Broken: " + gameObject.name);
             fire.Play();
+            ManageUI();
             AudioManager.instance.PlayAudio(AudioManager.instance.SFXAudio, AudioKey.Fire);
         }
+    }
+
+    private void ManageUI() 
+    {
+        UIManager.instance.UpdateFireAmountText(damages.current);
     }
 
     public void InReparation()
@@ -62,6 +68,7 @@ public class BreakableObject : MonoBehaviour
             fire.Stop();
             damages.current--;
             damages.OnRepair.Invoke();
+            ManageUI();
         }
     }
 }

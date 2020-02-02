@@ -82,6 +82,7 @@ public class PlayerController : MonoBehaviour
     private void EnableMovement()
     {
         fsm = FSM.Idle;
+        UIManager.instance.TriggerRepairProgress();
         AudioManager.instance.PlayAudio(AudioManager.instance.playerAudio, AudioKey.FireStopped);
         animator.SetBool(Tags.repairTrigger, false);
     }
@@ -96,6 +97,7 @@ public class PlayerController : MonoBehaviour
                 breakableObject.InReparation();
                 Invoke("EnableMovement", breakableObject.reparationTime);
                 AudioManager.instance.PlayAudio(AudioManager.instance.playerAudio, AudioKey.Repair);
+                UIManager.instance.TriggerRepairProgress();
                 fsm = FSM.Repairing;
             }
         }
