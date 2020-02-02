@@ -10,7 +10,15 @@ public class Fade : MonoBehaviour
 
     void Awake()
     {
-        Reference = this;
+        if(Reference == null)
+        {
+            Reference = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     public void FadeIn()
@@ -19,7 +27,7 @@ public class Fade : MonoBehaviour
 
     }
 
-    public void fadeOut()
+    public void FadeOut()
     {
         StartCoroutine(FadeOutCorrutine());
     }

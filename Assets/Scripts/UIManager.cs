@@ -9,22 +9,21 @@ public class UIManager : MonoBehaviour
 
     public static UIManager instance;
 
-    private void Awake()
-    {
-        if (instance && instance != this)
-            Destroy(this);
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
-    }
-
     public GameObject dangerText;
     public GameObject repairProgress;
     public Text fireAmountText;
 
+    private void Awake()
+    {
+        instance = this;
 
+        InternalSheepDamages.ResetData();
+    }
+
+    private void Start()
+    {
+        Fade.Reference.FadeOut();
+    }
 
     public void UpdateFireAmountText(int amount) 
     {
@@ -37,7 +36,8 @@ public class UIManager : MonoBehaviour
 
         if (InternalSheepDamages.isAllDestroyed()) 
         {
-            
+            Fade.Reference.FadeIn();
+            StartCoroutine(CallLose());
         }
     }
 
@@ -45,5 +45,11 @@ public class UIManager : MonoBehaviour
     {
         repairProgress.SetActive(!repairProgress.activeInHierarchy);
         repairProgress.GetComponent<Animator>().Play("RepairProgress");
+    }
+
+    IEnumerator CallLose()
+    {
+        yield return new WaitForSeconds(1.5f);
+        SceneLoader.StaticCallLoadScene("LoseState");
     }
 }

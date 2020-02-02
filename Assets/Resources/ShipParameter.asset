@@ -17,4 +17,4 @@ MonoBehaviour:
   clampMovement: 0.15
   maxLookInclination: 0.25
   lookSpeed: 6000
-  forwardSpeed: 14
+  forwardSpeed: 24

@@ -53,6 +53,7 @@ public class SheepMovement : MonoBehaviour
         {
             flyCam.SetActive(false);
             mainCamera.gameObject.SetActive(false);
+            ResetShipPos();
             return;
         }
         else
@@ -91,7 +92,9 @@ public class SheepMovement : MonoBehaviour
         }
 
         if (Input.GetButtonDown("ChangeState") || Input.GetKeyDown(KeyCode.Z))
+        {
             gameState.currentEntity = GameState.PlayableEntities.Bob;
+        }
     }
 
     void LocalMove(float x, float y, float speed)
@@ -227,6 +230,11 @@ public class SheepMovement : MonoBehaviour
 
         DOVirtual.Float(dolly.m_Speed, speed, .15f, SetSpeed);
         SetCameraZoom(zoom, .4f);
+    }
+
+    void ResetShipPos()
+    {
+        shipTransform.localPosition = Vector3.zero;
     }
 
     private void OnDestroy()

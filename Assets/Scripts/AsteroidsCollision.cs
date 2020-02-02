@@ -24,9 +24,8 @@ public class AsteroidsCollision : MonoBehaviour
         {
             if (dr)
             {
-                var force = collisionEvents[i].velocity.magnitude * 10;
                 //Debug.Log(force);
-                dr.SetDamage(force);
+                dr.SetDamage(10);
                 AudioManager.instance.PlayAudio(AudioManager.instance.SFXAudio, AudioKey.Crash);
             }
             i++;

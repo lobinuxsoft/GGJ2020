@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: d74dcbf37a72d2842a16966017cc640d
+  - enabled: 1
+    path: Assets/Scenes/LoseState.unity
+    guid: f22696d237cf4454c98f1378282d1541
+  - enabled: 1
+    path: Assets/Scenes/NotLoseState.unity
+    guid: 98fbdc51bd51ed6478815ab59e965652
   m_configObjects: {}

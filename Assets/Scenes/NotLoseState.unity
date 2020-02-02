@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -250,7 +250,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -209, y: -53}
+  m_AnchoredPosition: {x: -209, y: -123}
   m_SizeDelta: {x: 160, y: 78.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &731513996
@@ -305,6 +305,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: GamePlayScene
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2088599723}
+        m_MethodName: FadeIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &731513997
@@ -378,7 +389,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -209, y: -131.20001}
+  m_AnchoredPosition: {x: -209, y: -201.20001}
   m_SizeDelta: {x: 110.2, y: 53.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &912562673
@@ -426,6 +437,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2088599717}
         m_MethodName: Quit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2088599723}
+        m_MethodName: FadeIn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -506,8 +528,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -203, y: 73}
-  m_SizeDelta: {x: 413.43, y: 103.36}
+  m_AnchoredPosition: {x: -181, y: 72.95772}
+  m_SizeDelta: {x: 457.4, y: 269.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1076914783
 MonoBehaviour:
@@ -557,17 +579,17 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 60.4
+  m_fontSize: 100
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 100
   m_fontStyle: 0
-  m_textAlignment: 258
+  m_textAlignment: 514
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: -60
+  m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -5970,6 +5992,8 @@ GameObject:
   - component: {fileID: 2088599719}
   - component: {fileID: 2088599718}
   - component: {fileID: 2088599717}
+  - component: {fileID: 2088599722}
+  - component: {fileID: 2088599723}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -5989,6 +6013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634d1952e7c30d8459f9023cf0d93b1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delayChangeScene: 1.5
 --- !u!114 &2088599718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6072,3 +6097,31 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2088599722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088599716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d296dc0db26e44e8e0380fd854a6e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  internalSheepDamages: {fileID: 11400000, guid: bce9f23b67704a342a54764b001a9ad7,
+    type: 2}
+  winText: {fileID: 1076914783}
+--- !u!114 &2088599723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088599716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1073094d3614f7645b4d1f667fdd70d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  callFadeIn: 0

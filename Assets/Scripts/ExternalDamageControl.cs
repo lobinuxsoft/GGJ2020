@@ -37,9 +37,4 @@ public class ExternalDamageControl : MonoBehaviour
             }
         }
     }
-
-    private void OnDestroy()
-    {
-        internalSheepDamages.ResetData();
-    }
 }
