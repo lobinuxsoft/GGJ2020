@@ -86,7 +86,7 @@ public class SheepMovement : MonoBehaviour
             QuickSpin(dir);
         }
 
-        if (Input.GetButtonDown("ChangeState"))
+        if (Input.GetButtonDown("ChangeState") || Input.GetKeyDown(KeyCode.Z))
             gameState.currentEntity = GameState.PlayableEntities.Bob;
     }
 
