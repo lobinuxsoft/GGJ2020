@@ -10,6 +10,7 @@ public class WinUI : MonoBehaviour
 
     private void Start()
     {
-        winText.text = $"You win! \n <color=black><size=20> You arrived with  <color=yellow>{internalSheepDamages.current}</color> / <color=yellow>{internalSheepDamages.total}</color> th \nof your merchandise </size></color>";
+        var rest = internalSheepDamages.total - internalSheepDamages.current;
+        winText.text = $"You win! \n <color=black><size=20> You arrived with  <color=yellow>{rest}</color> / <color=yellow>{internalSheepDamages.total}</color> th \nof your merchandise </size></color>";
     }
 }
