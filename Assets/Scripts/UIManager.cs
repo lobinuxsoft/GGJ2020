@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public InternalSheepDamages InternalSheepDamages;
+
     public static UIManager instance;
 
     private void Awake()
@@ -22,6 +24,8 @@ public class UIManager : MonoBehaviour
     public GameObject repairProgress;
     public Text fireAmountText;
 
+
+
     public void UpdateFireAmountText(int amount) 
     {
         fireAmountText.text = "x " + amount;
@@ -30,6 +34,11 @@ public class UIManager : MonoBehaviour
             dangerText.SetActive(true);
         else
             dangerText.SetActive(false);
+
+        if (InternalSheepDamages.isAllDestroyed()) 
+        {
+            
+        }
     }
 
     public void TriggerRepairProgress() 

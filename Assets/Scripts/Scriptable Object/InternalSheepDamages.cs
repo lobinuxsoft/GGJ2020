@@ -16,6 +16,14 @@ public class InternalSheepDamages : BaseVariable
         OnDamage.RemoveAllListeners();
         OnRepair.RemoveAllListeners();
     }
+
+    public bool isAllDestroyed()
+    {
+        if (total != 0 && current != 0 && total == current)
+            return true;
+
+        return false;
+    }
 }
 
 [System.Serializable]
